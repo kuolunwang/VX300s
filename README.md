@@ -6,9 +6,42 @@ UR5 repo including:
 * interbotix_ros_core
 * interbotix_ros_mainpulators
 * interbotix_ros_toolboxes
+* vx300s_bringup
 
 ## Clone repo
 
 ```
     git clone --recursive git@github.com:kuolunwang/VX300s.git
 ```
+
+## How to use VX300s
+
+### Hardware Setup
+
+1. Plug the 12V power cable into an outlet and insert the barrel plug into the barrel jack on the X-series power hub (located under the see-through acrylic on the base of the robot). You should briefly see the LEDs on the Dynamixel motors flash red.
+2. Plug in the micro-usb cable into the U2D2 (located under the see-through acrylic on the robot's base) and your computer.
+3. Make sure your computer can detect /dev/USB0. 
+### Software Setup
+
+1. First you need to launch vx300s_connect.launch to connect vx300s.
+    ```
+        roslaunch vx300s_bringup vx300s_connect.launch
+    ```
+
+2. Then, source vx300s_control.py script to control vx300s
+    ```
+        cd script && python3 vx300s_control.py
+    ``` 
+
+## Service List
+
+---
+
+| Service Name | Service Type | Service Description |
+|:--------:|:--------:|:--------:|
+| /vx300s/go_home | [Trigger](http://docs.ros.org/en/melodic/api/std_srvs/html/srv/Trigger.html) | Set vx300s joints to initial value(0) |
+|/vx300s/go_sleep| [Trigger](http://docs.ros.org/en/melodic/api/std_srvs/html/srv/Trigger.html) | Set vx300s go back to initial pose |
+| /vx300s/go_pose | [ee_pose.srv](https://github.com/kuolunwang/VX300s/blob/main/vx300s_bringup/srv/ee_pose.srv) | Set vx300s go to specific pose |
+| /vx300s/gripper_open| [Trigger](http://docs.ros.org/en/melodic/api/std_srvs/html/srv/Trigger.html) | Set vx300s end-effector gripper open |
+| /vx300s/gripper_close| [Trigger](http://docs.ros.org/en/melodic/api/std_srvs/html/srv/Trigger.html) | Set vx300s end-effector gripper close |
+| /vx300s/check_grasped| [Trigger](http://docs.ros.org/en/melodic/api/std_srvs/html/srv/Trigger.html) | Check if the end-effector gripper is grasped object
