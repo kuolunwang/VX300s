@@ -1,6 +1,6 @@
 # VX300s
 
-The repo is robot repo for control VX300s on noetic.
+The repo is robot repo for control VX300s on melodic.
 
 UR5 repo including:
 * interbotix_ros_core
