@@ -8,6 +8,13 @@ UR5 repo including:
 * interbotix_ros_toolboxes
 * vx300s_bringup
 
+## ROS Distro Support
+
+|         | Melodic | Noetic  |
+|:-------:|:-------:|:-------:|
+| branch | [`melodic`](https://github.com/kuolunwang/VX300s/tree/melodic) | [`noetic`](https://github.com/kuolunwang/VX300s/tree/noetic) |
+| Status | supported | supported |
+
 ## Clone repo
 
 ```
