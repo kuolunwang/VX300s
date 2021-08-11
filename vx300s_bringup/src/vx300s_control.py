@@ -6,22 +6,25 @@ from interbotix_xs_modules.arm import InterbotixManipulatorXS
 from vx300s_bringup.srv import *
 from sensor_msgs.msg import JointState
 
+import argparse
 import tf
 import tf.transformations as tfm
 
 class vx300s():
-    def __init__(self):
+    def __init__(self, name):
+
+        self.name = name
 
         # Service
-        rospy.Service("/vx300s/go_home", Trigger, self.vx300s_home)
-        rospy.Service("/vx300s/go_sleep", Trigger, self.vx300s_sleep)
-        rospy.Service("/vx300s/go_pose", ee_pose, self.vx300s_ee_pose)
-        rospy.Service("/vx300s/gripper_open", Trigger, self.vx300s_open)
-        rospy.Service("/vx300s/gripper_close", Trigger, self.vx300s_close)
-        rospy.Service("/vx300s/check_grasped", Trigger, self.vx300s_check)
+        rospy.Service("/{0}/go_home".format(name), Trigger, self.vx300s_home)
+        rospy.Service("/{0}/go_sleep".format(name), Trigger, self.vx300s_sleep)
+        rospy.Service("/{0}/go_pose".format(name), ee_pose, self.vx300s_ee_pose)
+        rospy.Service("/{0}/gripper_open".format(name), Trigger, self.vx300s_open)
+        rospy.Service("/{0}/gripper_close".format(name), Trigger, self.vx300s_close)
+        rospy.Service("/{0}/check_grasped".format(name), Trigger, self.vx300s_check)
 
         # vx300s setup
-        robot = InterbotixManipulatorXS("vx300s", "arm", "gripper")
+        robot = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=name, init_node=False)
 
         self.arm = robot.arm
         self.gripper = robot.gripper
@@ -31,7 +34,7 @@ class vx300s():
     def init(self):
 
         self.gripper.open(2.0)
-        self.arm.go_to_home_pose()
+        self.arm.go_to_sleep_pose()
         rospy.loginfo("initial already!")
 
     def vx300s_home(self, req):
@@ -65,7 +68,7 @@ class vx300s():
         res = TriggerResponse()
 
         try:
-            joint_info = rospy.wait_for_message('/vx300s/joint_states', JointState)
+            joint_info = rospy.wait_for_message('/{0}/joint_states'.format(self.name), JointState)
         except (rospy.ServiceException, rospy.ROSException) as e:
             res.success = False
             print("Service call failed: %s"%e)
@@ -128,5 +131,14 @@ class vx300s():
 
 if __name__=='__main__':
 
-    VX300s = vx300s()
+    parser = argparse.ArgumentParser(prog="vx300s control", description='control vx300s end-effector')
+    parser.add_argument("--node_name", type=str, default="vx300s_control_node", help="ros node name")
+
+    arg = parser.parse_args()
+
+    rospy.init_node(arg.node_name, anonymous=False)
+
+    robot_name = rospy.get_param("robot_name")
+    VX300s = vx300s(robot_name)
+    
     rospy.spin()

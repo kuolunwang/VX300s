@@ -27,20 +27,29 @@ UR5 repo including:
 
 1. Plug the 12V power cable into an outlet and insert the barrel plug into the barrel jack on the X-series power hub (located under the see-through acrylic on the base of the robot). You should briefly see the LEDs on the Dynamixel motors flash red.
 2. Plug in the micro-usb cable into the U2D2 (located under the see-through acrylic on the robot's base) and your computer.
-3. Make sure your computer can detect /dev/USB0. 
+3. Make sure your computer can detect /dev/USB0 or other port. 
 ### Software Setup
 
 1. First you need to launch vx300s_connect.launch to connect vx300s.
+\
+This launch file have three parameters can control.
+    * robot_name : robot name. 
+    * port : you need see your computer detect which port, then fix this.
+    * use_rviz : show rviz or not.
     ```
         roslaunch vx300s_bringup vx300s_connect.launch
     ```
 
-2. Then, source vx300s_control.py script to control vx300s
+2. Then, rosrun node to control vx300s.
+\
+    You can rename node name using --node_name [your name] type command behide, or use default name vx300s_control_node.
     ```
-        cd script && python3 vx300s_control.py
+        rosrun vx300s_bringup vx300s_control.py
     ``` 
 
 ## Service List
+\
+**The defualt robot_name is vx300s.**
 
 ---
 
