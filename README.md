@@ -45,6 +45,20 @@ This launch file have three parameters can control.
         rosservice list
     ``` 
 
+## Use joystick to control vx300s
+
+### Hardware Setup
+
+1. Plug or bluetooth connect PS4 joystick with your computer.
+2. Make sure your computer can detect /dev/input/js0.
+
+### Software Setup
+
+1. Execute vx300s_joystick.launch to control vx300s with joystick.
+```
+    roslaunch vx300s_bringup vx300s_joystick.launch
+```
+
 ## Service List
 \
 **The defualt robot_name is vx300s.**
