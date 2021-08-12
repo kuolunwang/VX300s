@@ -110,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES vx300s_bringup
-#  CATKIN_DEPENDS roscpp rospy std_msgs std_srvs
+  CATKIN_DEPENDS roscpp rospy std_msgs std_srvs
 #  DEPENDS system_lib
 )
 

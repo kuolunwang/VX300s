@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <!-- connect vx300s -->
-    <include file="$(find interbotix_xsarm_control)/launch/xsarm_control.launch">
-            <arg name="robot_model"     default="vx300s" />
-            <arg name="port"            default="/dev/ttyUSB0" />
-    </include>
-</launch>
