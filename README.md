@@ -28,6 +28,7 @@ UR5 repo including:
 1. Plug the 12V power cable into an outlet and insert the barrel plug into the barrel jack on the X-series power hub (located under the see-through acrylic on the base of the robot). You should briefly see the LEDs on the Dynamixel motors flash red.
 2. Plug in the micro-usb cable into the U2D2 (located under the see-through acrylic on the robot's base) and your computer.
 3. Make sure your computer can detect /dev/USB0 or other port. 
+
 ### Software Setup
 
 1. First you need to launch vx300s_control.launch to connect vx300s and control it.
@@ -44,6 +45,20 @@ This launch file have three parameters can control.
     ```
         rosservice list
     ``` 
+
+## Use joystick to control vx300s
+
+### Hardware Setup
+
+1. Plug or bluetooth connect PS4 joystick with your computer.
+2. Make sure your computer can detect /dev/input/js0.
+
+### Software Setup
+
+1. Execute vx300s_joystick.launch to control vx300s with joystick.
+```
+    roslaunch vx300s_bringup vx300s_joystick.launch
+```
 
 ## Service List
 \
