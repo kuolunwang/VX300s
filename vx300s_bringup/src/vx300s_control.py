@@ -6,7 +6,6 @@ from interbotix_xs_modules.arm import InterbotixManipulatorXS
 from vx300s_bringup.srv import *
 from sensor_msgs.msg import JointState
 
-import argparse
 import tf
 import tf.transformations as tfm
 
@@ -131,12 +130,7 @@ class vx300s():
 
 if __name__=='__main__':
 
-    parser = argparse.ArgumentParser(prog="vx300s control", description='control vx300s end-effector')
-    parser.add_argument("--node_name", type=str, default="vx300s_control_node", help="ros node name")
-
-    arg = parser.parse_args()
-
-    rospy.init_node(arg.node_name, anonymous=False)
+    rospy.init_node("vx300s_control_node", anonymous=False)
 
     robot_name = rospy.get_param("robot_name")
     VX300s = vx300s(robot_name)

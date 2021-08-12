@@ -30,7 +30,7 @@ UR5 repo including:
 3. Make sure your computer can detect /dev/USB0 or other port. 
 ### Software Setup
 
-1. First you need to launch vx300s_connect.launch to connect vx300s.
+1. First you need to launch vx300s_control.launch to connect vx300s and control it.
 \
 This launch file have three parameters can control.
     * robot_name : robot name. 
@@ -40,11 +40,9 @@ This launch file have three parameters can control.
         roslaunch vx300s_bringup vx300s_connect.launch
     ```
 
-2. Then, rosrun node to control vx300s.
-\
-    You can rename node name using --node_name [your name] type command behide, or use default name vx300s_control_node.
+2. Then, you can see some rosservice to control vx300s. 
     ```
-        rosrun vx300s_bringup vx300s_control.py
+        rosservice list
     ``` 
 
 ## Service List
