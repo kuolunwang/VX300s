@@ -37,7 +37,7 @@ This launch file have three parameters can control.
     * port : you need see your computer detect which port, then fix this.
     * use_rviz : show rviz or not.
     ```
-        roslaunch vx300s_bringup vx300s_connect.launch
+        roslaunch vx300s_bringup vx300s_control.launch
     ```
 
 2. Then, you can see some rosservice to control vx300s.
@@ -55,9 +55,9 @@ This launch file have three parameters can control.
 ### Software Setup
 
 1. Execute vx300s_joystick.launch to control vx300s with joystick.
-```
-    roslaunch vx300s_bringup vx300s_joystick.launch
-```
+    ```
+        roslaunch vx300s_bringup vx300s_joystick.launch
+    ```
 
 ## Service List
 \
