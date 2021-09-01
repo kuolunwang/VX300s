@@ -21,6 +21,7 @@ class vx300s():
         rospy.Service("/{0}/gripper_open".format(name), Trigger, self.vx300s_open)
         rospy.Service("/{0}/gripper_close".format(name), Trigger, self.vx300s_close)
         rospy.Service("/{0}/check_grasped".format(name), Trigger, self.vx300s_check)
+        rospy.Service("/{0}/go_mm_home".format(name), Trigger, self.mm_home)
 
         # vx300s setup
         robot = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=name, init_node=False)
@@ -124,6 +125,20 @@ class vx300s():
             res.result = "success"
         except (rospy.ServiceException, rospy.ROSException) as e:
             res.result = "Fail"
+            print("Service call failed: %s"%e)
+        
+        return res
+
+    def mm_home(self, req):
+
+        res = TriggerResponse()
+
+        try:
+            joint_positions = [-0.03681553900241852, -1.1627575159072876, 0.4832039475440979, 0.0015339808305725455, 0.6841554641723633, 0.023009711876511574]
+            self.arm.set_joint_positions(joint_positions)
+            res.success = True
+        except (rospy.ServiceException, rospy.ROSException) as e:
+            res.success = False
             print("Service call failed: %s"%e)
         
         return res
