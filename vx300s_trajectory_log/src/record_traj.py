@@ -43,7 +43,7 @@ class Record(object):
         try:
             self.home(tri)
             self.sta(tri)
-            time.sleep(1)
+            time.sleep(0.5)
             self.mau(tor)
             res.success = True
         except rospy.ServiceException as exc:

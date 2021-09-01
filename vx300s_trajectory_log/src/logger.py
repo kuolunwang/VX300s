@@ -29,7 +29,7 @@ class Collect(object):
 
         self.cv_bridge = CvBridge()
         r = rospkg.RosPack()
-        self.path = os.path.join(r.get_path('locobot_trajectory_log'), "log")
+        self.path = os.path.join(r.get_path('vx300s_trajectory_log'), "log")
 
         if not os.path.exists(self.path):
             os.makedirs(self.path)
