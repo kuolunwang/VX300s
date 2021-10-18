@@ -22,6 +22,7 @@ class vx300s():
         rospy.Service("/{0}/gripper_close".format(name), Trigger, self.vx300s_close)
         rospy.Service("/{0}/check_grasped".format(name), Trigger, self.vx300s_check)
         rospy.Service("/{0}/go_mm_home".format(name), Trigger, self.mm_home)
+        rospy.Service("/{0}/rotation".format(name), Trigger, self.rot)
 
         # vx300s setup
         robot = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=name, init_node=False)
@@ -127,6 +128,22 @@ class vx300s():
             res.result = "Fail"
             print("Service call failed: %s"%e)
         
+        return res
+
+    def rot(self, req):
+
+        res = TriggerResponse()
+
+        try:
+            # self.arm.set_ee_cartesian_trajectory(yaw=0.523)
+            rot_ee_pose = [0.54, 0.00, 0.4, 0, 0, 0]
+            for i in range(1,6):
+                self.arm.set_ee_pose_components(x=rot_ee_pose[0], y=rot_ee_pose[1], z=rot_ee_pose[2], roll=rot_ee_pose[3], pitch=rot_ee_pose[4], yaw=0.098125*i)
+            res.success = True
+        except (rospy.ServiceException, rospy.ROSException) as e:
+            res.success = False
+            print("Service call failed: %s"%e)
+
         return res
 
     def mm_home(self, req):
