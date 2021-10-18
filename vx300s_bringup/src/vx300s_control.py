@@ -23,6 +23,9 @@ class vx300s():
         rospy.Service("/{0}/check_grasped".format(name), Trigger, self.vx300s_check)
         rospy.Service("/{0}/go_mm_home".format(name), Trigger, self.mm_home)
         rospy.Service("/{0}/rotation".format(name), Trigger, self.rot)
+        rospy.Service("/{0}/get_pose".format(name), cur_pose, self.get_pose)
+
+        self.listener = tf.TransformListener()
 
         # vx300s setup
         robot = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=name, init_node=False)
@@ -107,6 +110,25 @@ class vx300s():
             res.success = False
             print("Service call failed: %s"%e)
         
+        return res
+
+    def get_pose(self, req):
+
+        res = cur_poseResponse()
+
+        try:
+            trans, rot = self.listener.lookupTransform("vx300s/base_link", "vx300s/ee_gripper_link", rospy.Time(0))
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
+            print("Service call failed: %s"%e)
+
+        res.pose.position.x = trans[0]
+        res.pose.position.y = trans[1]
+        res.pose.position.z = trans[2]
+        res.pose.orientation.x = rot[0]
+        res.pose.orientation.y = rot[1]
+        res.pose.orientation.z = rot[2]
+        res.pose.orientation.w = rot[3]
+
         return res
 
     def vx300s_ee_pose(self, req):

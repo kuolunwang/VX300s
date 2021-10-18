@@ -61,6 +61,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   ee_pose.srv
+  cur_pose.srv
 )
 
 ## Generate actions in the 'action' folder
