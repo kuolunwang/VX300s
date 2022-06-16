@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- parameter -->
+    <arg name="robot_namespace" default="robot"/>
+
+    <group ns="$(arg robot_namespace)">
+
+        <node pkg="vx300s_bringup" type="vx300s_moveit.py" name="vx300s_moveit_node" output="screen"/>
+    
+    </group>
+
+</launch>
